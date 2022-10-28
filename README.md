@@ -11,22 +11,16 @@ library(readxl)
 library(kableExtra)
 AgendaTable <- read_excel("C:/Users/erima96/OneDrive - Linköpings universitet/WSps/R-WorkshopMDU/AgendaTable.xlsx")
 ```
+This is a living document and will be updated (as will the GitHub repository).
 
-In this document you will find the agenda (it might change a bit but not much). You will further find information on how to install R (mirrors etc.) and how to install R-packages.
+Here you will find information on how to install R (mirrors etc.) and R-packages. 
 
-
-```{r age, echo = FALSE, results='asis'}
-tbs <- knitr::kable(AgendaTable, caption = "Rough Agenda", escape = FALSE) %>% kable_styling() %>%
-   add_footnote("Multilevel modeling requires lme4, lmerTest, etc. CFA/SEM will be carried out in lavaan. GitHub for more information.", notation="alphabet")
-column_spec(tbs, 3, width = "24em")
-```
-
-The first 30 minutes may be skipped or done quickly depending on the knowledge of the group.
 
 Before the Workshop:
 
 - R (https://cran.r-project.org/)
 - Install RStudio* (https://www.rstudio.com/)
+
 
 \pagebreak
 
@@ -37,6 +31,7 @@ If you have any problems contact me at erik.marsja@liu.se (I am available a coup
 A more detailed agenda as well as more instructions will be delivered closer to the Workshop.
 
 *Or your preferred IDE if you already use R
+
 
 ![Click on the right operating system.](C:/Users/erima96/OneDrive - Linköpings universitet/WSps/R-WorkshopMDU/Imgs/download_R.JPG "Downloading R for Windows or MacOs")
 
@@ -77,7 +72,7 @@ This is the actual final step. Now you can go to the folder you saved the file a
 I got a question concerning mirrors. You can use mirrors when downloading R but I mainly use it when installing R packages (more on this during the Workshop). Since I did my PhD in Umeå I prefer this mirror: https://ftp.acc.umu.se/mirror/CRAN/
 
 
-## Installing R-packages:
+### Installing R-packages:
 
 Installing r-packages can be done using the Console in RStudio (see Figure 4).
 
@@ -85,15 +80,25 @@ Installing r-packages can be done using the Console in RStudio (see Figure 4).
 install.packages(c('lavaan', 'semPlot', 'semTools', 'lme4', 'lmerTest'))
 ```
 
-## Tidyverse
-
-We will also most likely use the [Tidyverse](https://www.tidyverse.org/) packages (e.g., ggplot2, readr, readxl)
 
 ![Installing some packages](C:/Users/erima96/OneDrive - Linköpings universitet/WSps/R-WorkshopMDU/Imgs/installing_r_packages.jpg "one way to install packages")
 
-\pagebreak
 
-The packages can also be installed using the GUI of RStudio (see Figure 5)
+## Helpful packages
 
+In the Workshop, we will use mainly base packages but some packages need to be install. Note, some packages will be added here before the Workshop.
 
-![Installing packages with RStudio](C:/Users/erima96/OneDrive - Linköpings universitet/WSps/R-WorkshopMDU/Imgs/rstudio.jpg "Install packages with RStudio")
+### Factor analysis:
+
+- [lavaan](https://lavaan.ugent.be/)(For SEM and CFA)
+- [semTools](https://cran.r-project.org/web/packages/semTools/index.html)(Good tools when you have conducted your CFA and SEM)
+- [semPlot](https://cran.r-project.org/web/packages/semPlot/index.html)(Plotting Factor Analysis)
+
+### Multilevel/Linear mixed-effects modeling
+If time, we will cover Multilevel/LME modeling as well and then we need:
+
+- lme4
+- lmerTools
+
+### Tidyverse packages
+We will use the tidyverse packages such as ggplot2, readr. 
