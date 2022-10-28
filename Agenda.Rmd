@@ -1,0 +1,33 @@
+---
+title: "Agenda - R Workshop - ver2"
+author: "Erik Marsja"
+date: '2022-10-12'
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(readxl)
+AgendaTable <- read_excel("C:/Users/EMarsja/OneDrive - Linköpings universitet/WSps/MDU-RKurs/AgendaTable.xlsx")
+```
+
+This is a rough agenda and I can change it according to wishes. 
+
+
+```{r age, echo = FALSE, results='asis'}
+knitr::kable(AgendaTable)
+```
+
+The first 30 minutes may be skipped or done quickly depending on the knowledge of the group.
+I would like all of the people attending the Workshop/Course to:
+
+- Install RStudio* (https://www.rstudio.com/)
+- R (https://cran.r-project.org/)
+
+I will also add all of you to a GitHub page where all the material can be downloaded prior to the Workshop/Course. 
+
+If you have any problems contact me at erik.marsja@liu.se or erik.marsja@vti.se
+
+A more detailed agenda as well as more instructions will be delivered closer to the Workshop.
+
+*Or your preferred IDE if you already use R
