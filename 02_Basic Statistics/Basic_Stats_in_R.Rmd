@@ -1,0 +1,224 @@
+---
+title: "Basic Statistics in R"
+author: "Marsja"
+date: "`r Sys.Date()`"
+output: ioslides_presentation
+widescreen: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(tidyverse)
+```
+
+## Basic Statistical Tests in R
+
+- one sample t-test
+
+- independent samples t-test:
+  * Welch's T-test & Student's T-test
+  * t.test() function
+  
+- paired samples t-test
+
+- effect sizes
+
+- chi-square
+
+- correlation analysis
+
+# T-test
+
+## One sample t-test
+
+```{r ostest, echo=TRUE}
+#simulate data
+set.seed(150)
+df <- data.frame(RT = rnorm(100, mean = 53, sd = 10))
+
+t.test(df$RT, mu = 53)
+
+```
+
+## Assumption testing
+
+- Normality with Q-Q-plots and / or Shapiro-Wilks Test
+
+- Outliers can be checked using e.g., Box Plots & Histograms
+   * Also, the mice package can do imputation and outlier checking
+   * outliers package
+   
+## Normality: Histogram
+
+```{r}
+library(ggplot2)
+
+ggplot(df, aes(x=RT)) + 
+  geom_histogram(binwidth=5)
+```
+
+## Independent Samples t-test
+
+
+![](C:/Users/erima96/OneDrive - Linköpings universitet/WSps/R-WorkshopMDU/Imgs/t-testfunction-in-R.jpg "t-test arguments")
+
+
+```{r rxl, echo=TRUE}
+df_istt <- readxl::read_excel('../Data/is-t-test.xlsx') %>%
+  mutate(Group = as_factor(Group))
+head(df_istt, 2)
+
+```
+
+## Student's T-test
+```{r stest, echo=TRUE}
+df_istt <- readxl::read_excel('../Data/is-t-test.xlsx')
+tt.results <- t.test(Depression~Group, data=df_istt,
+                     var.equal = T)
+
+print(tt.results)
+```
+
+
+## Welch's T-test
+
+Can be used *if* the assumption of equal variances is violated
+```{r wttest, echo=TRUE}
+df_istt <- readxl::read_excel('../Data/is-t-test.xlsx')
+tt.results <- t.test(Depression~Group, data=df_istt, 
+                              var.equal = F)
+
+print(tt.results)
+```
+
+## T-test Visualize Data
+
+
+```{r grp, echo = TRUE}
+# library
+library(ggplot2)
+# grouped boxplot
+ggplot(df_istt, aes(x=Group, y=Depression)) + 
+    geom_boxplot()
+```
+
+
+
+
+## Assumptions: Normal distribution
+
+### For Group "One"
+```{r ndist, echo=TRUE, comment = ''}
+## Note, we use the subset function
+shapiro.test(subset(df_istt, Group == "One")$Depression)
+```
+
+### For Group "One"
+```{r ndist2, echo=TRUE, comment = ''}
+shapiro.test(subset(df_istt, Group == "Two")$Depression)
+```
+## Assumptions: Normal distribution
+
+```{r qqplot, echo=TRUE}
+library(ggplot2)
+p <- ggplot(df_istt, aes(sample = Depression))
+p + stat_qq() + stat_qq_line() + facet_wrap(~Group)
+```
+
+
+
+## Bartlett's test
+```{r btest, echo=TRUE}
+stats::bartlett.test(Depression~Group, data=df_istt)
+
+```
+
+ 
+## Levene's test (non-normal data)
+
+```{r ltest, echo=TRUE}
+car::leveneTest(Depression~Group, data=df_istt)
+```
+
+## Paired samples t-test
+
+```{r echo = TRUE, comments = ''}
+df_csv <- read.csv('../Data/paired_samples_data.csv')
+t.test(score ~ test, paired = TRUE, df_csv)
+
+```
+
+
+## Effect Sizes
+
+- Can be calculated using Psych package (cohen.d())
+
+### Indpendent Sample t-tst
+- Effsize package:
+
+```{r effsize, echo=TRUE, comment=''}
+effsize::cohen.d(Depression ~ Group, data=df_istt)
+```
+
+- Paired samples t-test: cohensD() from lsr package
+
+## Chi-squared
+
+```{r chi2, echo=TRUE}
+M <- as.table(rbind(c(762, 327, 468), c(484, 239, 477)))
+dimnames(M) <- list(gender = c("F", "M"),
+                    party = c("Democrat","Independent", "Republican"))
+
+(Xsq <- chisq.test(M))
+```
+
+
+## Correlation Analysis
+
+- cor() for a correlation matrix
+- cor.test() for a correlation test (Pearson's, Spearman, Kendall)
+  - includes p-values etc.
+
+### Useful alternatives  
+- corr package
+- correlation package
+
+## Pearson's Product-Moment Correlation
+
+```{r echo=TRUE}
+
+df_cr <- readRDS('../Data/pcor.RDs')
+
+# Correlation analysis:
+
+cor.test(~ RSpan + Raven, data = df_cr)
+
+```
+
+## Visualize data using scatter plots
+
+```{r corplot, echo=TRUE, comment=""}
+library(ggplot2)
+p <- ggplot(df_cr, aes(x=RSpan, y=Raven)) + geom_point() + geom_smooth(method=lm)
+```
+
+- See [https://www.marsja.se/how-to-make-a-scatter-plot-in-r-with-ggplot2/](https://www.marsja.se/how-to-make-a-scatter-plot-in-r-with-ggplot2/) for a detailed blog post.
+
+## Scatter plot
+
+```{r corplot2}
+p  
+```
+
+## Spearman's 
+
+```{r echo=TRUE}
+
+
+cor.test(~ RSpan + Raven, method='spearman', data = df_cr,
+         exact = FALSE)
+
+```
+
+## Corellation Matrices (if time)
+
