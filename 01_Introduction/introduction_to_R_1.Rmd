@@ -1,0 +1,105 @@
+---
+title: "Introduction to R 1"
+author: "Marsja"
+date: "`r Sys.Date()`"
+output: ioslides_presentation
+widescreen: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(readxl);library(kableExtra)
+```
+
+## Today
+
+```{r age, echo = FALSE, results='asis'}
+options(warn=-1)
+AgendaTable <- read_excel("C:/Users/erima96/OneDrive - Linköpings universitet/WSps/R-WorkshopMDU/AgendaTable.xlsx")
+tbs <- knitr::kable(AgendaTable, caption = "Agenda", escape = FALSE) %>% kable_styling(font_size = 12) %>%
+   add_footnote("Multilevel modeling requires lme4, lmerTest, etc. CFA/SEM will be carried out in lavaan. GitHub for more information.", notation="alphabet")
+column_spec(tbs, 3, width = "24em")
+```
+
+
+## What is R?
+
+- Open Source & Free
+- Statistical Programming Environment
+
+  
+## RStudio
+
+- Integrated Development Environment (IDE) Source
+- Open Source & Free
+- Graphical User Interface (GUI)
+- Plus more features (e.g., RMarkdown)
+
+![](C:/Users/erima96/OneDrive - Linköpings universitet/WSps/R-WorkshopMDU/Imgs/rstudio_show.JPG "RStudio"){width=80%, height=80%}
+
+## Create a new Project in RStudio
+
+<div style="float: left; width: 40%;">
+1. File 
+2. New Project...
+3. New Directory (or Existing...)
+4. New Project
+5. Name your Project and Choose Directory
+</div>
+
+<div style="float: right; width: 60%;">
+![](C:/Users/erima96/OneDrive - Linköpings universitet/WSps/R-WorkshopMDU/Imgs/create_a_new_project_RStudio.JPG "Create Project")
+</div>
+
+## New Project in RStudio
+
+![](C:/Users/erima96/OneDrive - Linköpings universitet/WSps/R-WorkshopMDU/Imgs/rstudio_new_project_created.JPG "Project created"){width=80%,height=80%}
+
+## Create a Script
+
+1. File
+2. New File
+3. R Script
+4. Save the Script
+
+### Example
+Let's play around in R to see how a script work (and the console)
+
+## Variables & Syntax
+
+- the comments # 
+- variables (a symbolic name) and functions
+- the assignment operator <-
+- the = for arguments in functions
+
+```{r echo=TRUE}
+# Setup directory variable
+data_dir <- paste0(getwd(), '/', 'Data/')
+
+# Using the = in a function
+df_study <- read.csv('../Data/paired_samples_data.csv', 
+  sep=',')
+
+```
+
+
+## Data types
+
+- "numeric" 
+- "character" 
+- "integer" 
+- "logical" for TRUE and FALSE (boolean data type)
+
+
+```{r}
+str(df_study)
+```
+
+
+## Install packages:
+```{r echo=TRUE, eval=FALSE}
+install.packages('dplyr', 'readxl')
+```
+
+### Download the example data:
+

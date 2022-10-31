@@ -1,0 +1,98 @@
+---
+title: "Introduction to R 2"
+author: "Marsja"
+date: "`r Sys.Date()`"
+output: ioslides_presentation
+widescreen: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(readxl);library(kableExtra)
+```
+
+
+## Reading Data 
+
+- Comma-separated values (CSV)
+  - tab delimited
+- rds
+- Excel (e.g., .xlsx)
+- SPSS, Stata, SAS
+
+## Reading a CSV file
+
+```{r echo=TRUE}
+# sep=';'
+df_csv <- read.csv('../Data/paired_samples_data.csv', 
+  sep=',')
+
+head(df_csv)
+
+```
+
+![](C:/Users/erima96/OneDrive - Linköpings universitet/WSps/R-WorkshopMDU/Imgs/readcsv.JPG "Read csv")
+
+## Read Data from an Excel File
+
+- readxl package
+```{r eval=FALSE, echo=TRUE}
+library(readxl)
+# Tab-delimited
+df_excel <- read_excel('is-t-test.xlsx')
+```
+
+
+## Reading tab-delimited files, SPSS, SAS
+
+```{r eval=FALSE, echo=TRUE}
+# Tab-delimited
+df_t<- read.delim('../Data/paired_samples_data.txt', 
+  sep='\t')
+
+# SPSS 
+df_sav <- haven::read_sav('../Data/survey_1.sav')
+# alternative: 
+# library(haven)
+# df_sav <- read_sav('../Data/survey_1.sav')
+
+# SAS
+df_dat <- haven::read_data('../Data/play_data2.dta')
+
+```   
+
+- Stata files can also be read using the haven package
+
+## Checking Data Frame
+
+- dim() the number of dimensions
+- str() the structure
+- summary() summary statistics
+- head() and tail(), first n, and last n rows
+
+![](C:/Users/erima96/OneDrive - Linköpings universitet/WSps/R-WorkshopMDU/Imgs/summary_function_in_R.JPG "Sum stats")
+
+### Let's have a look!
+
+## Summary Statistics
+
+```{r eval=FALSE, echo=TRUE}
+library(dplyr)
+play_df <- readxl::read_excel('../Data/play_data.xlsx')
+tbl <- play_df %>%  group_by(Gender, Day) %>% 
+  summarise(SD = sd(RT, na.rm = T),
+            Mean = mean(RT, na.rm = T),
+            Median = median(RT, na.rm = T),
+            IQR = IQR(RT, na.rm = T),
+            "%25 Q" = quantile(RT, .25, na.rm = T),
+            "%50 Q" = quantile(RT, .5, na.rm = T),
+            "%75 Q" = quantile(RT, .75, na.rm = T))
+```
+
+
+## Reading Data in R Tutorials
+
+- [Reading and Writing Excel files (e.g., .xslx)](https://www.marsja.se/r-excel-tutorial-how-to-read-and-write-xlsx-files-in-r/)
+- [Reading and Writing SPSS files](https://www.marsja.se/how-to-read-write-spss-files-in-the-r-statistical-environment/)
+- [How to Read and Write Stata Files in R](https://www.marsja.se/how-to-read-and-write-stata-dta-files-in-r-with-haven/)
+- [Reading SAS (e.g., .sas77bdat) files in R](https://www.marsja.se/how-to-import-data-reading-sas-files-in-r/)

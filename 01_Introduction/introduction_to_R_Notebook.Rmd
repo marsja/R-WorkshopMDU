@@ -1,0 +1,29 @@
+---
+title: "Introduction to R - R Workshop"
+author: "Marsja"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook containing the code chunks (with brief explanations) for the introduction to R in the R Workshop for the researchers at MDU.
+
+
+## R
+R is an [Open Source](https://opensource.org/osd) statistical programming environment. That is, R is more than a programming/scripting language. In R we can carry, more or less, all types of statistical modeling (and if there are no built in functions for a method we can install packages or code the method or selves).
+
+
+## Why use R?
+
+Some of the perks with R are already mentioned (e.g., it is Open Source and free).
+
+Moreover, R is a powerful, extensible environment with a wide range of statistics and general data analysis and visualization methods. 
+
+ - Data handling, wrangling, and storage
+ - *Many* statistical and graphical techniques available
+ - Easy to install on any platform and use (and it’s free!)
+ - Open source = a large and growing community of peers
+    * e.g., Stackoverflow
+
+## R packages
+As previously mentioned, we do not have to write code for every analysis we want to carry out. We can use [R packages](https://en.wikipedia.org/wiki/R_package). There are numerous R packages included in base R (e.g., stats for carrying out linear regression). 
+
+
